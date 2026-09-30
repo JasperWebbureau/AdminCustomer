@@ -10,9 +10,6 @@ $h = function ($value): string {
             <h1><?=t('admin_customer_create_title', 'Nieuwe klant')?></h1>
             <p class="admin-page-header__intro"><?=t('admin_customer_create_intro', 'Maak eerst de klant aan; contacten en adressen voeg je daarna in de editor toe.')?></p>
         </div>
-        <div class="admin-page-header__actions">
-            <a class="button button-secondary" href="<?=$h($overviewUrl ?? '')?>"><i class="fas fa-arrow-left"></i> Terug naar overzicht</a>
-        </div>
     </div>
 
     <form class="admin-form" ajax="true" action="<?=$h($storeAction ?? '')?>" method="post">

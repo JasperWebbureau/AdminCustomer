@@ -10,9 +10,6 @@ $h = function ($value): string {
             <h1 data-admin-customer-name><?=$h($displayName ?? '')?></h1>
             <p class="admin-page-header__intro"><?=t('admin_customer_editor_intro', 'Beheer klantgegevens, contactpersonen en adressen.')?></p>
         </div>
-        <div class="admin-page-header__actions">
-            <a class="button button-secondary" href="<?=$h($overviewUrl ?? '')?>"><i class="fas fa-arrow-left"></i> Terug naar overzicht</a>
-        </div>
     </div>
 
     <div data-admin-customer-editor>

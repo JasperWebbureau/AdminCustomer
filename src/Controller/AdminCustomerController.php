@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Flexgrid\Modules\AdminCustomer\Controller;
 
 use Flexgrid\Event\AjaxEvent;
+use Flexgrid\Flexgrid;
 use Flexgrid\Modules\AdminCustomer\Application\Command\CreateCustomerCommand;
 use Flexgrid\Modules\AdminCustomer\Application\Command\UpdateCustomerCommand;
 use Flexgrid\Modules\AdminCustomer\Application\Query\CustomerListQuery;
@@ -34,6 +35,7 @@ final class AdminCustomerController
     {
         appendIconAndTitleToHeader('fas fa-address-book', 'Klanten', 'Administratie');
         $this->registerAssets(false, true);
+        $this->appendPageActions('overview');
 
         return new TemplateResponse('Flexgrid/Modules/AdminCustomer/src/Templates/Customers/Index.php', [
             'content' => (string)$this->renderContent($this->queryFromRequest()),
@@ -45,6 +47,7 @@ final class AdminCustomerController
     {
         appendIconAndTitleToHeader('fas fa-user-plus', 'Nieuwe klant', 'Administratie');
         $this->registerAssets();
+        $this->appendPageActions('back');
 
         return new TemplateResponse('Flexgrid/Modules/AdminCustomer/src/Templates/Create/Index.php', [
             'storeAction' => $this->ajaxAction('store'),
@@ -84,6 +87,7 @@ final class AdminCustomerController
 
         appendIconAndTitleToHeader('fas fa-user', $customer->getDisplayName(), 'Klanten');
         $this->registerAssets(true);
+        $this->appendPageActions('back');
         $viewModel = AdminCustomerFactory::createEditorPresenter()->present(
             $customer,
             $this->ajaxAction('update')
@@ -291,6 +295,14 @@ final class AdminCustomerController
             PageResponse::addAsset('Flexgrid/Modules/AdminCustomer/src/Templates/Editor/Css/Editor.scss');
             PageResponse::addAsset('Flexgrid/Modules/AdminCustomer/src/Templates/Editor/Js/Editor.js');
         }
+    }
+
+    private function appendPageActions(string $mode): void
+    {
+        Flexgrid::getApp()->appendMainHeader(new TemplateResponse(
+            'Flexgrid/Modules/AdminCustomer/src/Templates/HeaderActions.php',
+            ['mode' => $mode, 'createUrl' => $this->moduleUrl('create'), 'overviewUrl' => $this->moduleUrl('customers')]
+        ));
     }
 
     private function moduleUrl(string $path): string
