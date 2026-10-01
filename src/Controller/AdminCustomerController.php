@@ -299,10 +299,10 @@ final class AdminCustomerController
 
     private function appendPageActions(string $mode): void
     {
-        Flexgrid::getApp()->appendMainHeader(new TemplateResponse(
+        \Flexgrid\Modules\AdminCore\Service\AdminHeader::AdminAddHeader([new TemplateResponse(
             'Flexgrid/Modules/AdminCustomer/src/Templates/HeaderActions.php',
             ['mode' => $mode, 'createUrl' => $this->moduleUrl('create'), 'overviewUrl' => $this->moduleUrl('customers')]
-        ));
+        )]);
     }
 
     private function moduleUrl(string $path): string
