@@ -45,7 +45,7 @@ $inactive = new Customer(
 adminCustomerAssert($selectionMethod->invoke($provider, $inactive) === null, 'Inactieve klant mag niet selecteerbaar zijn.');
 
 $withoutBilling = new Customer('customer-provider-no-address', new TenantId('provider-tenant'), 'Zonder adres');
-adminCustomerAssert($selectionMethod->invoke($provider, $withoutBilling) === null, 'Klant zonder primair factuuradres mag niet selecteerbaar zijn.');
+adminCustomerAssert($selectionMethod->invoke($provider, $withoutBilling)->getBillingAddress()['line_1'] === '', 'Actieve klant zonder factuuradres moet selecteerbaar zijn.');
 
 $sourceRoot = dirname(__DIR__) . '/src';
 foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sourceRoot)) as $file) {
