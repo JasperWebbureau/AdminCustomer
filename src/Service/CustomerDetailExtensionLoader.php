@@ -23,6 +23,12 @@ final class CustomerDetailExtensionLoader
     {
         $html = '';
         foreach ($this->classes() as $class) {
+            $state = '\\Flexgrid\\Modules\\AdminCore\\Integration\\Flexgrid\\Service\\AdminModuleState';
+            $visibility = '\\Flexgrid\\Modules\\AdminCore\\Integration\\Flexgrid\\Service\\AdminModuleInterfaceVisibility';
+            if ((class_exists($state) && !$state::isEnabledForClass($class))
+                || (class_exists($visibility) && !$visibility::isVisibleForCurrentUserClass($class))) {
+                continue;
+            }
             if (!class_exists($class)) {
                 continue;
             }
