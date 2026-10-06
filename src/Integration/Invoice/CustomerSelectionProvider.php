@@ -63,9 +63,6 @@ final class CustomerSelectionProvider implements InvoiceCustomerProviderInterfac
             return null;
         }
         $address = $customer->getPrimaryAddress(new AddressType(AddressType::BILLING));
-        if ($address === null) {
-            return null;
-        }
         $contact = $customer->getPrimaryContact();
         return new InvoiceCustomerSelection(
             $customer->getPublicId(),
@@ -78,12 +75,12 @@ final class CustomerSelectionProvider implements InvoiceCustomerProviderInterfac
                 'tax_number' => $customer->getTaxNumber(),
             ],
             [
-                'line_1' => $address->getLine1(),
-                'line_2' => $address->getLine2(),
-                'postal_code' => $address->getPostalCode(),
-                'city' => $address->getCity(),
-                'region' => $address->getRegion(),
-                'country_code' => $address->getCountryCode(),
+                'line_1' => $address !== null ? $address->getLine1() : '',
+                'line_2' => $address !== null ? $address->getLine2() : '',
+                'postal_code' => $address !== null ? $address->getPostalCode() : '',
+                'city' => $address !== null ? $address->getCity() : '',
+                'region' => $address !== null ? $address->getRegion() : '',
+                'country_code' => $address !== null ? $address->getCountryCode() : '',
             ]
         );
     }
