@@ -7,7 +7,7 @@ namespace Flexgrid\Modules\AdminCustomer\Entity;
 use Repository\RepositoryEntity;
 
 /**
- * @FG\Entity[name=admin_customer_contact,repository=Flexgrid\Modules\AdminCustomer\Repository\ContactRecordRepository,type=Module,in_menu=false]
+ * @FG\Entity[name=admin_customer_contact,repository=Flexgrid\Modules\AdminCustomer\Repository\ContactRecordRepository,type=Module,in_menu=false,hide=true,hide=true]
  * @FG\Index::tenant_public[columns={tenantId,publicId},unique=true]
  * @FG\Index::tenant_customer_position[columns={tenantId,customerId,position},unique=true]
  * @FG\Index::tenant_customer[columns={tenantId,customerId}]
